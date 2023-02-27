@@ -8,10 +8,10 @@ $pdo = new Conexion();
 if (isset($_POST['enviar'])) {
 
     // INSERTAR REGISTRO
-    $sql = "INSERT INTO comprados (num_boleto, fecha_sorteo) VALUES (:boleto, :fecha_sorteo)";
+    $sql = "INSERT INTO comprados (boleto, fecha_sorteo) VALUES (:boleto, :fecha_sorteo)";
 
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':num_boleto', $_POST['num_boleto']);
+    $stmt->bindValue(':boleto', $_POST['boleto']);
     $stmt->bindValue(':fecha_sorteo', $_POST['fecha_sorteo']);
     $stmt->execute();
     $idPost = $pdo->lastInsertId();

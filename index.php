@@ -9,7 +9,7 @@
 <body>
     <section class="formulario">
     <form action="uso.php" method="POST">
-      <input type="text" placeholder="Numero Boleto" name="num_boleto" />
+      <input type="text" placeholder="Numero Boleto" name="boleto" />
       <br /><br /><br />
       <input type="date" placeholder="fecha del sorteo" name="fecha_sorteo" />
       <br /><br /><br />
