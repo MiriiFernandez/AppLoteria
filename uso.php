@@ -17,24 +17,7 @@ if (isset($_POST['enviar'])) {
     $idPost = $pdo->lastInsertId();
     if ($idPost) {
         header("HTTP/1.1 200 Ok");
-        exit;
     }
 
-
-    // // MOSTRAR BOLETOS COMPRADOS
-    // $sql = $pdo->prepare("SELECT * FROM comprados");
-    // $sql->execute();
-    // $sql->setFetchMode(PDO::FETCH_ASSOC);
-    // header("HTTP/1.1 200 hay datos");
-
-    // // Sacamos todos los resultados de la base de datos
-    // $resultado = $sql->fetchAll();
-
-    // echo "<br>Mostramos la información de los resultados: <br><br>";
-
-    // //Mostramos resultados
-    // foreach ($resultado as $row) {
-    //     echo "- <b>" . $row["id_comprado"] . " " . $row["boleto"] . " " . $row["fecha_sorteo"]
-    //         . " " . $row["premio"] . "</b><br>";
-    // }
+    exit;
 }
