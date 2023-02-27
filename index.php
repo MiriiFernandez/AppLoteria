@@ -16,13 +16,18 @@
       <input type="date" placeholder="fecha del sorteo" name="fecha_sorteo" />
       <br /><br />
 
-      <input type="submit" class="btn" name="enviar" value="Enviar">
+      <input type="submit" class="btn" name="enviar" value="Guardar y ver Boletos">
     </form>
 
-
-    <form action="comprados.php" method="POST">
-      <input type="submit" class="btn" name="ver" value="ver">
+    <br><br><br>
+    <form action="comprobar_boleto.php" method="GET">
+      <input type="text" placeholder="Numero Boleto" name="boleto" />
+      <br /><br />
+      <input type="date" placeholder="fecha del sorteo" name="fecha_sorteo" />
+      <br /><br />
+      <input type="submit" class="btn" name="premiado" value="Comprobar Boleto">
     </form>
   </section>
 </body>
+
 </html>
