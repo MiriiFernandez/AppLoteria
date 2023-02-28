@@ -5,24 +5,23 @@ include 'conexion.php';
 // Instanciamos un objeto Conexion (PDO)
 $pdo = new Conexion();
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+if (isset($_POST['premiado']) && !empty($_POST['boleto'])  && !empty($_POST['fecha_sorteo'])) {
 
-    if (isset($_POST['premiado']) && !empty($_POST['boleto'])  && !empty($_POST['fecha_sorteo'])) {
+    $boleto = $_POST['boleto'];
+    $fecha_sorteo = $_POST['fecha_sorteo'];
 
-        // COMPROBAR QUE EL BOLETO INTRODUCIDO SE ENCUENTRE EN LA TABLA DE BOLETOS PREMIADOS
-        $query = $pdo->prepare("SELECT * FROM premios WHERE boleto=:boleto and fecha_sorteo=:fecha_sorteo");
-        $sql->bindValue(':boleto', $_GET['boleto']);
-        $sql->bindValue(':fecha_sorteo', $_GET['fecha_sorteo']);
-        $query->execute();
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        header("HTTP/1.1 200 hay datos");
+    $sql = 'SELECT boleto, fecha_sorteo, dinero FROM premios WHERE fecha_sorteo = :fecha_sorteo and boleto = :boleto';
+    $stmt = $pdo->prepare($sql);
+    $result = $stmt->execute(array(':fecha_sorteo' =>$fecha_sorteo, ':boleto' => $boleto));
+    $rows = $stmt->fetchAll(\PDO::FETCH_OBJ);
 
-        // Mostramos resultados
-
-        $comparacion = $query->fetchAll();
-
-        foreach ($comparacion as $row) {
-            echo "- <b>" . $row["id_premio"] . " " . $row["boleto"] . " " . $row["fecha_sorteo"] . " " . $row["dinero"] . "</b><br>";
+    if (count($rows)) {
+        foreach ($rows as $row) {
+            print("Boleto: " . " " . $row->boleto. " " . "Fecha Sorteo: " .$row->fecha_sorteo . " " . "Dinero: " . $row->dinero); 
         }
+    } else{
+        echo "el boleto que has introducido no esta entre los premiados";
     }
+
+
 }

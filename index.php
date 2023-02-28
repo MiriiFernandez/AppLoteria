@@ -20,7 +20,7 @@
     </form>
 
     <br><br><br>
-    <form action="comprobar_boleto.php" method="GET">
+    <form action="comprobar_boleto.php" method="POST">
       <input type="text" placeholder="Numero Boleto" name="boleto" />
       <br /><br />
       <input type="date" placeholder="fecha del sorteo" name="fecha_sorteo" />
