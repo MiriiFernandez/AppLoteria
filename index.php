@@ -26,6 +26,7 @@
       <input type="date" placeholder="fecha del sorteo" name="fecha_sorteo" />
       <br /><br />
       <input type="submit" class="btn" name="premiado" value="Comprobar Boleto">
+      <input type="submit" class="btn" name="boletosR" value="Visualizar Resultado de los Boletos ">
     </form>
   </section>
 </body>
