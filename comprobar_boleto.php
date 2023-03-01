@@ -46,5 +46,23 @@ if (isset($_POST['boletosR'])) {
         echo "Fallo: " . $e->getMessage();
     }
 
+    //VISUALIZAR TABLA 
+    $sql = $pdo->prepare("SELECT * FROM acomulados");
+    $sql->execute();
+    $sql->setFetchMode(PDO::FETCH_ASSOC);
+    header("HTTP/1.1 200 hay datos");
+
+    // Mostramos resultados directamente
+
+    $resultado = $sql->fetchAll();
+
+    foreach ($resultado as $row) {
+        echo "- <b>" . $row["boleto"] . " " . $row["fecha_sorteo"] . " " . $row["premio"] . "</b><br>";
+    }
     //sumar el mismo campo
+    foreach ($pdo->query('SELECT SUM(premio) FROM acomulados') as $row) {
+        echo "<tr>";
+        echo "<td>" . $row['SUM(premio)'] . "</td>";
+        echo "";
+    }
 }
