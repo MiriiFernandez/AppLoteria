@@ -23,6 +23,7 @@
 </html>
 
 <?php
+
 // Incluimos el archivo de conexion mediante PDO
 include 'conexion.php';
 
@@ -30,22 +31,20 @@ include 'conexion.php';
 // Instanciamos un objeto Conexion (PDO)
 $pdo = new Conexion();
 
-
 //ALMACENAR BOLETOS COMPRADOS
-if (isset($_POST['enviar']) && !empty($_POST['boleto'])  && !empty($_POST['fecha_sorteo'])) {
+if (isset($_POST['enviar_premiados'])) {
 
     // INSERTAR REGISTRO
-    $sql = "INSERT INTO boletos_comprados (boleto_comprado, fecha_sorteo) VALUES (:boleto_comprado, :fecha_sorteo)";
+    $sql = "INSERT INTO boletos_premiados (boleto_premiado, fecha_sorteo) VALUES (:boleto, :fecha_sorteo)";
 
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':boleto_comprado', $_POST['boleto']);
+    $stmt->bindValue(':boleto', $_POST['boleto']);
     $stmt->bindValue(':fecha_sorteo', $_POST['fecha_sorteo']);
     $stmt->execute();
     $idPost = $pdo->lastInsertId();
 
     if ($idPost) {
-
-
+        header("HTTP/1.1 200 Ok");
     }
 } else {
     echo "no se puede dejar el campo vacio";

@@ -10,49 +10,22 @@
 </head>
 
 <body>
-  <section class="formulario">
-    <form action="uso.php" method="POST">
-      <input type="text" placeholder="Numero Boleto" name="boleto" />
-      <br /><br />
-      <input type="date" placeholder="fecha del sorteo" name="fecha_sorteo" />
-      <br /><br />
-
-      <input type="submit" class="btn" name="enviar" value="Guardar y ver Boletos">
-    </form>
+  <br><br>
+  <section class="container">
+    <section class="logo">
+      <img src="https://www.loteriasyapuestas.es/f/loterias/estaticos/imagenes/topaz/cabecera_EuromillonesAJ_topaz.png" alt="">
+    </section>
 
     <br><br><br>
-    <form action="comprobar_boleto.php" method="POST">
-      <input type="text" placeholder="Numero Boleto" name="boleto" />
-      <br /><br />
-      <input type="date" placeholder="fecha del sorteo" name="fecha_sorteo" />
-      <br /><br />
-      <input type="submit" class="btn" name="premiado" value="Comprobar Boleto">
-      <input type="submit" class="btn" name="boletosR" value="Visualizar Resultado de los Boletos ">
-    </form>
-  </section>
-
-  <br><br>
-  <table style="width:50%">
-    <tr>
-      <th>PREMIO</th>
-    </tr>
-    <tr>
-      <td>6000.000</td>
-    </tr>
-    <tr>
-      <td>10.000</td>
-    </tr>
-    <tr>
-      <td>300</td>
-    </tr>
-    <tr>
-      <td>120</td>
-    </tr>
-    <tr>
-      <td>60</td>
-    </tr>
     
-  </table>
+    <a href="boletos_comprados.php"><button class="button-29" role="button">Ingresar Boletos Comprados</button> </a>
+    <br>
+    <a href="boleto_premiado.php"><button class="button-29" role="button">Ingresar Boleto Premiado</button> </a>
+    <br>
+    <a href=""><button class="button-29" role="button">¡Ver Tu Suerte!</button> </a>
+
+  </section>
+  <br><br>
 </body>
 
 </html>
