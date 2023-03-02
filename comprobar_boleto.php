@@ -32,12 +32,13 @@ if (isset($_POST['boletosR'])) {
         $pdo->beginTransaction();
 
         /* Cambiar el esquema y datos de la base de datos */
-        $pdo->exec("INSERT INTO acomulados(boleto, fecha_sorteo, premio)
-        SELECT boleto, fecha_sorteo, premio FROM comprados");
+        // $pdo->exec("INSERT INTO acomulados(boleto, fecha_sorteo, premio)
+        // SELECT boleto, fecha_sorteo, premio FROM comprados");
 
         /* Actualizar columna premio de la tabla acomulados, basado en el valor del boleto y la fecha de sorteo*/
         // $pdo->exec("UPDATE acomulados ac
         // SET ac.premio = ( SELECT pre.dinero FROM premios pre WHERE ac.boleto = pre.boleto AND ac.fecha_sorteo = pre.fecha_sorteo)");
+        
         $pdo->exec("UPDATE acomulados SET premio = 6000000 WHERE boleto = '48791'");
         $pdo->exec("UPDATE acomulados SET premio = 10000 WHERE boleto = '48790'");
         $pdo->exec("UPDATE acomulados SET premio = 300 WHERE boleto = '48700'");

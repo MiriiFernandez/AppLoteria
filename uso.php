@@ -31,6 +31,23 @@ if (isset($_POST['enviar']) && !empty($_POST['boleto'])  && !empty($_POST['fecha
             echo "- <b>" . $row["id_comprado"] . " " . $row["boleto"] . " " . $row["fecha_sorteo"] . "</b><br>";
         }
     }
+
+    try {
+        /* Iniciar una transacción, desactivando 'autocommit' */
+        $pdo->beginTransaction();
+
+        /* Cambiar el esquema y datos de la base de datos */
+        $pdo->exec("INSERT INTO acomulados(boleto, fecha_sorteo, premio)
+        SELECT boleto, fecha_sorteo, premio FROM comprados");
+
+        $pdo->commit();
+    } catch (Exception $e) {
+        /* Reconocer un error y revertir los cambios */
+        $pdo->rollBack();
+        echo "Fallo: " . $e->getMessage();
+    }
+
+
 } else {
     echo "no se puede dejar el campo vacio";
 }
