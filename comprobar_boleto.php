@@ -38,8 +38,11 @@ if (isset($_POST['boletosR'])) {
         /* Actualizar columna premio de la tabla acomulados, basado en el valor del boleto y la fecha de sorteo*/
         // $pdo->exec("UPDATE acomulados ac
         // SET ac.premio = ( SELECT pre.dinero FROM premios pre WHERE ac.boleto = pre.boleto AND ac.fecha_sorteo = pre.fecha_sorteo)");
-        $pdo->exec("UPDATE acomulados SET premio = 60 WHERE boleto = '12345'");
-        $pdo->exec("UPDATE acomulados SET premio = 100 WHERE boleto = '54321'");
+        $pdo->exec("UPDATE acomulados SET premio = 6000000 WHERE boleto = '48791'");
+        $pdo->exec("UPDATE acomulados SET premio = 10000 WHERE boleto = '48790'");
+        $pdo->exec("UPDATE acomulados SET premio = 300 WHERE boleto = '48700'");
+        $pdo->exec("UPDATE acomulados SET premio = 120 WHERE boleto = '48091'");
+        $pdo->exec("UPDATE acomulados SET premio = 60 WHERE boleto = '48001'");
 
         $pdo->commit();
     } catch (Exception $e) {
