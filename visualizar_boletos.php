@@ -7,7 +7,7 @@ include 'conexion.php';
 // Instanciamos un objeto Conexion (PDO)
 $pdo = new Conexion();
 
-//ALMACENAR BOLETOS COMPRADOS
+//ALMACENAR BOLETOS COMPRADOS Y PREMIADOS EN LA TABLA DE PREMIOS
 try {
 
     $sql_origen = "SELECT * FROM boletos_premiados UNION SELECT * FROM boletos_comprados";
@@ -25,7 +25,15 @@ try {
         $consulta_insert->execute();
     }
 
-    echo "Los datos han sido copiados exitosamente.";
+    $pdo->beginTransaction();
+
+    $pdo->exec("UPDATE premios SET cantidad = 300 WHERE boleto BETWEEN 48700 AND 48799");
+
+    $pdo->commit();
+
+    foreach ($datos as $row) {
+        echo "- <b>" . $row["boleto"] . " " . $row["fecha_sorteo"] . " " . "</b><br>";
+    }
 } catch (PDOException $e) {
     echo "Error al copiar los datos: " . $e->getMessage();
 }

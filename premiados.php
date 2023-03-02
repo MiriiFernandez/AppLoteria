@@ -35,7 +35,7 @@ $pdo = new Conexion();
 if (isset($_POST['enviar_premiados'])) {
 
     // INSERTAR REGISTRO
-    $sql = "INSERT INTO boletos_premiados (boleto_premiado, fecha_sorteo) VALUES (:boleto, :fecha_sorteo)";
+    $sql = "INSERT INTO boletos_premiados (boleto, fecha_sorteo) VALUES (:boleto, :fecha_sorteo)";
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':boleto', $_POST['boleto']);
