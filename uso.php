@@ -15,6 +15,7 @@ if (isset($_POST['enviar']) && !empty($_POST['boleto'])  && !empty($_POST['fecha
     $stmt->bindValue(':fecha_sorteo', $_POST['fecha_sorteo']);
     $stmt->execute();
     $idPost = $pdo->lastInsertId();
+
     if ($idPost) {
 
         // MOSTRAR TODA LA TABLA DE BOLETOS COMPRADOS
