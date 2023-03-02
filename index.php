@@ -22,7 +22,7 @@
     <br>
     <a href="boleto_premiado.php"><button class="button-29" role="button">Ingresar Boleto Premiado</button> </a>
     <br>
-    <a href=""><button class="button-29" role="button">¡Ver Tu Suerte!</button> </a>
+    <a href="visualizar_boletos.php"><button class="button-29" role="button">¡Ver Tu Suerte!</button> </a>
 
   </section>
   <br><br>
