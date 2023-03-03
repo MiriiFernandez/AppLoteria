@@ -59,9 +59,13 @@ try {
         $stmt = $pdo->prepare("UPDATE premios SET cantidad = 10000 WHERE boleto = 48790 AND 48792");
         $stmt = $pdo->prepare("UPDATE premios SET cantidad = 300 WHERE boleto BETWEEN 48700 AND 48799");
 
-        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 300 WHERE SUBSTR(boleto,-3) = 791");
-        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 120 WHERE SUBSTR(boleto,-2) = 91");
-        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 60 WHERE SUBSTR(boleto,-1) = 1 LIMIT 1");
+        $stmt = $pdo->prepare("UPDATE premios SET cantidad =
+        CASE
+            WHEN boleto LIKE '%791' THEN '300'
+            WHEN boleto LIKE '%91' THEN '120'
+            WHEN boleto LIKE '%1' THEN '60'
+            ELSE cantidad
+        END");
 
 
         $stmt->execute();
