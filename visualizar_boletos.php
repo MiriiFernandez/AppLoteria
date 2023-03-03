@@ -25,14 +25,36 @@ try {
         $consulta_insert->execute();
     }
 
+    // Iniciar la transacción
     $pdo->beginTransaction();
 
-    $pdo->exec("UPDATE premios SET cantidad = 300 WHERE boleto BETWEEN 48700 AND 48799");
+    try {
+        // Ejecutar la consulta para actualizar la columna
+        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 300 WHERE boleto BETWEEN 48700 AND 48799");
+        $stmt->execute();
 
-    $pdo->commit();
+        // Comprobar si hubo algún error
+        $error = $stmt->errorInfo();
+        if ($error[0] !== '00000') {
+            // Si hubo un error, cancelar la transacción
+            $pdo->rollBack();
+            echo "Hubo un error al actualizar la columna: " . $error[2];
+        } else {
+            // Si no hubo errores, confirmar la transacción
+            $pdo->commit();
+            $sql_origen = "SELECT * FROM premios";
+            $consulta_origen = $pdo->prepare($sql_origen);
+            $consulta_origen->execute();
+            $datos = $consulta_origen->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach ($datos as $row) {
-        echo "- <b>" . $row["boleto"] . " " . $row["fecha_sorteo"] . " " . "</b><br>";
+            foreach ($datos as $row) {
+                echo "- <b>" . $row["boleto"] . " " . " " . $row["fecha_sorteo"] . " " . $row["cantidad"] . "</b><br>";
+            }
+        }
+    } catch (Exception $e) {
+        // Si se produjo una excepción, cancelar la transacción
+        $pdo->rollBack();
+        echo "Hubo un error al actualizar la columna: " . $e->getMessage();
     }
 } catch (PDOException $e) {
     echo "Error al copiar los datos: " . $e->getMessage();
