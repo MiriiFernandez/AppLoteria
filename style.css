@@ -139,3 +139,14 @@ input:active{
 h3{
   font-family: "JetBrains Mono", monospace;
 }
+
+.boletos{
+  border-radius: 8px;
+  background: #000;
+  width: 50%;
+  height: 100%;
+}
+
+.fila{
+  font-size: 24px;
+}
