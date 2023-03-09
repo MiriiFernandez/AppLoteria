@@ -56,28 +56,11 @@ try {
     try {
         // Ejecutar la consulta para actualizar el campo
 
-        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 10000 WHERE boleto = 48790 AND 48792");
-
         /* En caso de que termine con 48791 se le añadiran esa cantidad, en caso de que el boleto
-        sea entre los números 48700 y 48799, obviaremos el boleto 48791 con NOT LIKE */
-        // $stmt = $pdo->prepare("UPDATE premios SET cantidad = 
-        // CASE 
-        //     WHEN boleto LIKE '%48791' THEN 600000 
-        //     WHEN boleto LIKE '%487__' AND boleto NOT LIKE '%48791' THEN 10000
-        //     ELSE 0
-        // END
-        // WHERE boleto BETWEEN '48700' AND '48799';");
-
-        /* En caso de que termine con __791 se le añadiran esa cantidad, si termina ___91 se le añadiran esa cantidad
+        sea entre los números 48700 y 48799, obviaremos los boletos con NOT LIKE para que no se sobreescriban entre si
+        si termina con __791 se le añadiran esa cantidad, si termina ___91 se le añadiran esa cantidad
         y si termina con ____1 se le añadira otra cantidad, con % compararemos el final de un campo con un número especifico */
-        // $stmt = $pdo->prepare("UPDATE premios SET cantidad =
-        //   CASE
-        //       WHEN boleto LIKE '%__791' THEN 300  
-        //       WHEN boleto LIKE '%___91' THEN 120
-        //       WHEN boleto LIKE '%____1' THEN 60
-        //       ELSE cantidad
-        //   END");
-
+       
         $stmt = $pdo->prepare("UPDATE premios SET cantidad = 
         CASE 
             WHEN boleto LIKE '%48791' THEN  600000 
