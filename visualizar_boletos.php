@@ -40,7 +40,7 @@ try {
     $consulta_origen->execute();
     $datos = $consulta_origen->fetchAll(PDO::FETCH_ASSOC);
 
-    // Finalmente, insertamos los datos en la tabla de destino
+    // Finalmente, insertamos los datos en la tabla premios
     foreach ($datos as $fila) {
         $sql_insert = "INSERT INTO premios (boleto, fecha_sorteo)
                    VALUES (:boleto, :fecha_sorteo)";
@@ -54,18 +54,40 @@ try {
     $pdo->beginTransaction();
 
     try {
-        // Ejecutar la consulta para actualizar la columna
-        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 600000 WHERE boleto = 48791");
-        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 10000 WHERE boleto = 48790 AND 48792");
-        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 300 WHERE boleto BETWEEN 48700 AND 48799");
+        // Ejecutar la consulta para actualizar el campo
 
-        $stmt = $pdo->prepare("UPDATE premios SET cantidad =
-        CASE
-            WHEN boleto LIKE '%791' THEN '300'
-            WHEN boleto LIKE '%91' THEN '120'
-            WHEN boleto LIKE '%1' THEN '60'
+        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 10000 WHERE boleto = 48790 AND 48792");
+
+        /* En caso de que termine con 48791 se le añadiran esa cantidad, en caso de que el boleto
+        sea entre los números 48700 y 48799, obviaremos el boleto 48791 con NOT LIKE */
+        // $stmt = $pdo->prepare("UPDATE premios SET cantidad = 
+        // CASE 
+        //     WHEN boleto LIKE '%48791' THEN 600000 
+        //     WHEN boleto LIKE '%487__' AND boleto NOT LIKE '%48791' THEN 10000
+        //     ELSE 0
+        // END
+        // WHERE boleto BETWEEN '48700' AND '48799';");
+
+        /* En caso de que termine con __791 se le añadiran esa cantidad, si termina ___91 se le añadiran esa cantidad
+        y si termina con ____1 se le añadira otra cantidad, con % compararemos el final de un campo con un número especifico */
+        // $stmt = $pdo->prepare("UPDATE premios SET cantidad =
+        //   CASE
+        //       WHEN boleto LIKE '%__791' THEN 300  
+        //       WHEN boleto LIKE '%___91' THEN 120
+        //       WHEN boleto LIKE '%____1' THEN 60
+        //       ELSE cantidad
+        //   END");
+
+        $stmt = $pdo->prepare("UPDATE premios SET cantidad = 
+        CASE 
+            WHEN boleto LIKE '%48791' THEN  600000 
+            WHEN boleto LIKE '%487__' AND boleto NOT LIKE '%48791' THEN 10000
+            WHEN boleto LIKE '%791' THEN 300
+            WHEN boleto LIKE '%91' AND boleto NOT LIKE '%791' THEN 120
+            WHEN boleto LIKE '%1' AND boleto NOT LIKE '%91' AND boleto NOT LIKE '%791' THEN 60
             ELSE cantidad
-        END");
+        END
+        WHERE boleto LIKE '%1' OR boleto LIKE '%91' OR boleto LIKE '%791' OR boleto LIKE '%487%';");
 
 
         $stmt->execute();
