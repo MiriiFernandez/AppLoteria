@@ -60,7 +60,7 @@ try {
         sea entre los números 48700 y 48799, obviaremos los boletos con NOT LIKE para que no se sobreescriban entre si
         si termina con __791 se le añadiran esa cantidad, si termina ___91 se le añadiran esa cantidad
         y si termina con ____1 se le añadira otra cantidad, con % compararemos el final de un campo con un número especifico */
-       
+
         $stmt = $pdo->prepare("UPDATE premios SET cantidad = 
         CASE 
             WHEN boleto LIKE '%48791' THEN  600000 
@@ -75,36 +75,28 @@ try {
 
         $stmt->execute();
 
-        // Comprobar si hubo algún error
-        $error = $stmt->errorInfo();
-        if ($error[0] !== '00000') {
-            // Si hubo un error, cancelar la transacción
-            $pdo->rollBack();
-            echo "Hubo un error al actualizar la columna: " . $error[2];
-        } else {
-            // Si no hubo errores, confirmar la transacción
-            $pdo->commit();
-            $sql_origen = "SELECT * FROM premios";
-            $consulta_origen = $pdo->prepare($sql_origen);
-            $consulta_origen->execute();
-            $datos = $consulta_origen->fetchAll(PDO::FETCH_ASSOC);
+        // Si no hubo errores, confirmar la transacción y muestrame la tabla de premios por pantalla
+        $pdo->commit();
+        $sql_origen = "SELECT * FROM premios";
+        $consulta_origen = $pdo->prepare($sql_origen);
+        $consulta_origen->execute();
+        $datos = $consulta_origen->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($datos as $row) {
-                echo '<p class="fila">' . $row["boleto"] . " " . " " . $row["fecha_sorteo"] . " " . $row["cantidad"] . '</p>';
-            }
+        foreach ($datos as $row) {
+            echo '<p class="fila">' . $row["boleto"] . " " . $row["fecha_sorteo"] . "" . " ". $row["cantidad"] . "€" . '</p>';
+        }
 
-            echo "<br>";
+        echo "<br>";
 
-            //SUMA DE LA COLUMNA CANTIDAD
-            foreach ($pdo->query('SELECT SUM(cantidad) FROM premios') as $row) {
-                echo '<p class="fila">' . "Suma total de los premios: " . '</p>';
-                echo '<p class="fila">' . $row['SUM(cantidad)'] . '</p>';
-            }
+        //SUMA DE LA COLUMNA CANTIDAD
+        foreach ($pdo->query('SELECT SUM(cantidad) FROM premios') as $row) {
+            echo '<p class="fila">' . "Suma total de los premios: " . '</p>';
+            echo '<p class="fila">' . $row['SUM(cantidad)'] . " € " . '</p>';
         }
     } catch (Exception $e) {
         // Si se produjo una excepción, cancelar la transacción
         $pdo->rollBack();
-        echo "Hubo un error al actualizar la columna: " . $e->getMessage();
+        echo "Error: " . $e->getMessage();
     }
 } catch (PDOException $e) {
     echo "Error al copiar los datos: " . $e->getMessage();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-03-2023 a las 11:11:43
+-- Tiempo de generación: 09-03-2023 a las 21:48:27
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.0.19
 
@@ -24,50 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `acomulados`
+-- Estructura de tabla para la tabla `boletos_comprados`
 --
 
-CREATE TABLE `acomulados` (
-  `id_acomulado` int(11) NOT NULL,
+CREATE TABLE `boletos_comprados` (
+  `id_boleto_comprado` int(11) NOT NULL,
   `boleto` int(5) NOT NULL,
-  `fecha_sorteo` date NOT NULL,
-  `premio` int(11) NOT NULL
+  `fecha_sorteo` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `acomulados`
---
-
-INSERT INTO `acomulados` (`id_acomulado`, `boleto`, `fecha_sorteo`, `premio`) VALUES
-(60, 48790, '2023-03-03', 10000),
-(61, 48700, '2023-03-03', 300),
-(62, 78342, '2023-03-02', 0),
-(63, 12345, '2023-03-02', 0),
-(64, 48001, '2023-03-03', 60);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `comprados`
+-- Estructura de tabla para la tabla `boletos_premiados`
 --
 
-CREATE TABLE `comprados` (
-  `id_comprado` int(11) NOT NULL,
-  `boleto` int(11) NOT NULL,
-  `fecha_sorteo` date NOT NULL,
-  `premio` int(11) NOT NULL
+CREATE TABLE `boletos_premiados` (
+  `id_boleto_premiado` int(11) NOT NULL,
+  `boleto` int(5) NOT NULL,
+  `fecha_sorteo` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `comprados`
---
-
-INSERT INTO `comprados` (`id_comprado`, `boleto`, `fecha_sorteo`, `premio`) VALUES
-(1, 48790, '2023-03-03', 0),
-(2, 48700, '2023-03-03', 0),
-(5, 78342, '2023-03-02', 0),
-(12, 12345, '2023-03-02', 0),
-(17, 48001, '2023-03-03', 0);
 
 -- --------------------------------------------------------
 
@@ -79,35 +55,24 @@ CREATE TABLE `premios` (
   `id_premio` int(11) NOT NULL,
   `boleto` int(5) NOT NULL,
   `fecha_sorteo` date NOT NULL,
-  `dinero` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `premios`
---
-
-INSERT INTO `premios` (`id_premio`, `boleto`, `fecha_sorteo`, `dinero`) VALUES
-(1, 48791, '2023-03-03', 600000),
-(2, 48790, '2023-03-03', 10000),
-(4, 48700, '2023-03-03', 300),
-(5, 48091, '2023-03-03', 120),
-(6, 48001, '2023-03-03', 60);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `acomulados`
+-- Indices de la tabla `boletos_comprados`
 --
-ALTER TABLE `acomulados`
-  ADD PRIMARY KEY (`id_acomulado`);
+ALTER TABLE `boletos_comprados`
+  ADD PRIMARY KEY (`id_boleto_comprado`);
 
 --
--- Indices de la tabla `comprados`
+-- Indices de la tabla `boletos_premiados`
 --
-ALTER TABLE `comprados`
-  ADD PRIMARY KEY (`id_comprado`);
+ALTER TABLE `boletos_premiados`
+  ADD PRIMARY KEY (`id_boleto_premiado`);
 
 --
 -- Indices de la tabla `premios`
@@ -120,22 +85,22 @@ ALTER TABLE `premios`
 --
 
 --
--- AUTO_INCREMENT de la tabla `acomulados`
+-- AUTO_INCREMENT de la tabla `boletos_comprados`
 --
-ALTER TABLE `acomulados`
-  MODIFY `id_acomulado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+ALTER TABLE `boletos_comprados`
+  MODIFY `id_boleto_comprado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT de la tabla `comprados`
+-- AUTO_INCREMENT de la tabla `boletos_premiados`
 --
-ALTER TABLE `comprados`
-  MODIFY `id_comprado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+ALTER TABLE `boletos_premiados`
+  MODIFY `id_boleto_premiado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `premios`
 --
 ALTER TABLE `premios`
-  MODIFY `id_premio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_premio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=870;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
